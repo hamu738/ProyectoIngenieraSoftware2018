@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LibraryTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2018-05-22T17:00:15" hostname="DESKTOP-FP171KI" time="0.004">
+<testsuite name="LibraryTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2018-05-27T19:46:21" hostname="DESKTOP-FP171KI" time="0.006">
   <properties/>
-  <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.004">
+  <testcase name="testSomeLibraryMethod" classname="LibraryTest" time="0.006">
     <failure message="java.lang.AssertionError" type="java.lang.AssertionError">java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)
