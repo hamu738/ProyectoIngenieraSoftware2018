@@ -1,3 +1,8 @@
+import java.awt.Window;
+
+import interfaces.controllerInterface;
+import interfaces.modelInterface;
+import interfaces.vistaInterface;
 
 public class controllerMenuPrincipal implements controllerInterface{
 
@@ -9,6 +14,7 @@ public class controllerMenuPrincipal implements controllerInterface{
 		this.modelo = modelo;
 		vistaMenuPrincipal = new vistaMenuPrincipal(this, modelo);
 		vistaMenuPrincipal.crearVista();
+		((Window) vistaMenuPrincipal).setVisible(true);
 		
 	}
 	
@@ -22,7 +28,7 @@ public class controllerMenuPrincipal implements controllerInterface{
 	@Override
 	public void inicioJuego2() {
 		
-		modelo.inicioJuego1();
+		modelo.inicioJuego2();
 		
 	}
 

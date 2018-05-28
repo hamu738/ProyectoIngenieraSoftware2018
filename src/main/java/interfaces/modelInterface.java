@@ -1,8 +1,9 @@
+package interfaces;
 
 public interface modelInterface 
 {
-	void registrarObservador(observerInterface o);
-	void removerObservador(observerInterface o);
+	void registrarObserver(observerInterface o);
+	void removeObserver(observerInterface o);
 	void notificarObservador();
 	void inicioJuego1();
 	void inicioJuego2();
