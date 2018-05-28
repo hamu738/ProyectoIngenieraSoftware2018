@@ -5,9 +5,8 @@ public class Library {
     public boolean someLibraryMethod() {
         return true;    
      
-        //comentario
-        //verificar cambios
-        //20:49
+        //verificando funcionamiento
+        //21:10
   
     }
 }
