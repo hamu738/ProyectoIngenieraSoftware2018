@@ -2,11 +2,11 @@ package interfaces;
 
 public interface controllerInterface {
 	
-	void inicioJuego1();
-	void inicioJuego2();
+	void inicioJuego();
 	void salirJuego();
 	void logicaJuego(String boton, int valor);
 	void tiempoLimite();
-	void iniciarPuntuacion();	
+	void iniciarPuntuacion();
+	void seleccionJuego(int i);	
 
 }

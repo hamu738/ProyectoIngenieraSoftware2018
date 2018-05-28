@@ -1,64 +1,58 @@
-import java.awt.Window;
-
 import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.vistaInterface;
 
-public class controllerMenuPrincipal implements controllerInterface{
-
+public class controllerJuego2 implements controllerInterface {
+	
 	private modelInterface modelo;
-	private vistaInterface vistaMenuPrincipal;
+	private vistaInterface vistaJuego2;
 	
-	public controllerMenuPrincipal(modelInterface modelo) {
-		
+
+	public controllerJuego2(model modelo) {
 		this.modelo = modelo;
-		vistaMenuPrincipal = new vistaMenuPrincipal(this, modelo);
-		vistaMenuPrincipal.crearVista();
-		((Window) vistaMenuPrincipal).setVisible(true);
-		
+		vistaJuego2 = new vistaJuego2(this, modelo);
+		vistaJuego2.crearVista();
+	//	((Window) vistaJuego2).setVisible(true);
 	}
-	
-	@Override
-	public void seleccionJuego(int i) {
-		
-		modelo.seleccionJuego(i);
-		
-		
-	}
-	
+
 	@Override
 	public void inicioJuego() {
-				
-	}
 
+
+			modelo.inicioJuego2();
+
+	}
 
 
 	@Override
 	public void salirJuego() {
-		// TODO Auto-generated method stub
-		
+
+		modelo.finJuego2();
+
 	}
 
 	@Override
 	public void logicaJuego(String boton, int valor) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void tiempoLimite() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void iniciarPuntuacion() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-
-
-
+	@Override
+	public void seleccionJuego(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

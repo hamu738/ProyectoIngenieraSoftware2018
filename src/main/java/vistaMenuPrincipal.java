@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 
 import interfaces.controllerInterface;
 import interfaces.modelInterface;
+import interfaces.observerInterface;
 import interfaces.vistaInterface;
 
 import java.awt.GridBagLayout;
@@ -17,8 +18,12 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class vistaMenuPrincipal extends JFrame implements vistaInterface {
+public class vistaMenuPrincipal extends JFrame implements vistaInterface, observerInterface{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtBienvenidoSeleccioneEl;
 	private modelInterface modelo;
@@ -33,8 +38,10 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface {
 	
 	public vistaMenuPrincipal(controllerMenuPrincipal controller, modelInterface modelo){
 		
-		this.modelo = modelo;
 		this.controller = controller;
+		this.modelo = modelo;
+		modelo.registrarObserver((observerInterface) this);
+		crearVista();  //IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING Y COMENTAR PARA SU USO COMUN Y CORRIENTE DEL PROGRAMA
 		
 	}
 	
@@ -73,9 +80,8 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface {
 		btnRompecabezas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRompecabezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				System.out.println("Estoy en rompe" );
-			//	controller.inicioJuego1();
+					
+				controller.seleccionJuego(1);
 			}
 		});
 		GridBagConstraints gbc_btnRompecabezas = new GridBagConstraints();
@@ -90,9 +96,7 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface {
 		btnMemoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("Estoy en memoria" );
-		//		controller.inicioJuego2();
-				
+				controller.seleccionJuego(2);
 				
 			}
 		});
@@ -109,6 +113,17 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface {
 	@Override
 	public void evento() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizar() {
+
+		if (modelo.getMostrarMenu() == 1) {
+			this.setVisible(true);
+		} else {
+			this.setVisible(false);
+		}
 		
 	}
 
