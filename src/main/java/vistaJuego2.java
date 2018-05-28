@@ -20,8 +20,6 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	private controllerJuego2 controller;
 	private JTextField txtSoyJuego;
 
-	// vistaJuego1 frame = new vistaJuego1();
-	// frame.setVisible(true);
 
 	public vistaJuego2(controllerJuego2 controller, modelInterface modelo) {
 
