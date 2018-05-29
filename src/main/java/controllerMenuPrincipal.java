@@ -32,7 +32,6 @@ public class controllerMenuPrincipal implements controllerInterface{
 	}
 
 
-
 	@Override
 	public void salirJuego() {
 		// TODO Auto-generated method stub
@@ -40,7 +39,7 @@ public class controllerMenuPrincipal implements controllerInterface{
 	}
 
 	@Override
-	public void logicaJuego(String boton, int valor) {
+	public void logicaJuego(int i) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -56,6 +55,8 @@ public class controllerMenuPrincipal implements controllerInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 

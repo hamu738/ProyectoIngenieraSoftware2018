@@ -4,7 +4,7 @@ public interface controllerInterface {
 	
 	void inicioJuego();
 	void salirJuego();
-	void logicaJuego(String boton, int valor);
+	void logicaJuego(int i);
 	void tiempoLimite();
 	void iniciarPuntuacion();
 	void seleccionJuego(int i);	

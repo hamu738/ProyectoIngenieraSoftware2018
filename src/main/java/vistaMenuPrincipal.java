@@ -127,4 +127,10 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 		
 	}
 
+	@Override
+	public void reordenarVista() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

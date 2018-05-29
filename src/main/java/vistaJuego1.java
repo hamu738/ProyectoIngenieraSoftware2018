@@ -1,15 +1,15 @@
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 import interfaces.vistaInterface;
+
+
+import java.awt.BorderLayout;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 
 public class vistaJuego1 extends JFrame implements vistaInterface, observerInterface {
@@ -18,23 +18,26 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private modelInterface modelo;
 	private controllerJuego1 controller;
+	private JPanel contentPane;
 	private JTextField txtSoyJuego;
 
 
-	public vistaJuego1(controllerJuego1 controller, modelInterface modelo) {
 
+	public vistaJuego1(controllerJuego1 controller, modelInterface modelo) {
+		
 		this.controller = controller;
 		this.modelo = modelo;
 		modelo.registrarObserver((observerInterface) this);
 		crearVista(); // IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING Y COMENTAR PARA
 						// SU USO COMUN Y CORRIENTE DEL PROGRAMA
+		
 	}
 
 	@Override
 	public void crearVista() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -58,12 +61,19 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 	@Override
 	public void actualizar() {
 
-		if (modelo.getIniciarJuego1() == 1) {
+		if (modelo.getEstadoJuego1() == 1) {
+			System.out.println("hols");
 			this.setVisible(true);
 		} else {
 			this.setVisible(false);
 		}
 
+	}
+
+	@Override
+	public void reordenarVista() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -12,7 +12,6 @@ public class controllerJuego1 implements controllerInterface {
 		this.modelo = modelo;
 		vistaJuego1 = new vistaJuego1(this, modelo);
 		vistaJuego1.crearVista();
-	//	((Window) vistaJuego1).setVisible(true);
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class controllerJuego1 implements controllerInterface {
 	}
 
 	@Override
-	public void logicaJuego(String boton, int valor) {
+	public void logicaJuego(int i) {
 		// TODO Auto-generated method stub
 
 	}

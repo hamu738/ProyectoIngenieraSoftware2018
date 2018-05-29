@@ -18,8 +18,7 @@ public class controllerJuego2 implements controllerInterface {
 	@Override
 	public void inicioJuego() {
 
-
-			modelo.inicioJuego2();
+		modelo.inicioJuego2();
 
 	}
 
@@ -32,8 +31,8 @@ public class controllerJuego2 implements controllerInterface {
 	}
 
 	@Override
-	public void logicaJuego(String boton, int valor) {
-		// TODO Auto-generated method stub
+	public void logicaJuego(int i) {
+		modelo.secuenciaJuego2(i);
 
 	}
 
