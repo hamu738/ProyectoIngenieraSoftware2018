@@ -59,7 +59,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		// importamos imagen que estan en carpeta src
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 582, 449);
+		setBounds(100, 100, 756, 562);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(34, 139, 34));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -98,9 +98,10 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	public void reordenarVista() {
 
 		for (int i = 0; i < buttons.length; i++) {
-			ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
-																										// recorriendo
+		ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
+																									// recorriendo
 																										// imagenes
+			
 			buttons[i].setIcon(ima[i]); // setIconNull para guardarlo
 		}
 

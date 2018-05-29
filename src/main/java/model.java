@@ -99,6 +99,7 @@ public class model implements modelInterface {
 		
 		logicaJuego2 = 0;
 		presionada0_juego2= presionada1_juego2= -1;
+		aciertosJuego2 = 0;
 
 		System.out.println("InicioJuego2");
 		
