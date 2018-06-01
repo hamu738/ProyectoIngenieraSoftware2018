@@ -6,8 +6,8 @@ import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
+import javax.swing.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 import interfaces.vistaInterface;
@@ -22,6 +25,10 @@ import javax.swing.JProgressBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.DropMode;
+import java.awt.Font;
 
 public class vistaJuego2 extends JFrame implements vistaInterface, observerInterface {
 
@@ -36,11 +43,18 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	private JButton buttons[] = new JButton[12];
 	private JButton btnIniciar;
 	private JButton btnExit;
+	private JProgressBar progressBar;
 	private ActionListener listener;
 	ImageIcon ima[] = new ImageIcon[12]; // tengo 6 pares de imagens
 	private int sel = 0;
-	private int par_seleccionado [] = new int [2];
-
+	private int par_seleccionado[] = new int[2];
+	public final static int tiempo_error = 500;
+	public boolean active;
+	private int aciertos;
+	private int desaciertos;
+	private JTextArea txtPuntajes;
+	private JTextField textField;
+	private int aux_contador_tiempo;
 
 	public vistaJuego2(controllerJuego2 controller, modelInterface modelo) {
 		setBackground(SystemColor.desktop);
@@ -49,6 +63,9 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		this.controller = controller;
 		this.modelo = modelo;
 		modelo.registrarObserver((observerInterface) this);
+		this.active = true;
+		aciertos = desaciertos = 0;
+		aux_contador_tiempo = 0;
 		crearVista(); // IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING Y COMENTAR PARA
 						// SU USO COMUN Y CORRIENTE DEL PROGRAMA
 	}
@@ -61,7 +78,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 756, 562);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(34, 139, 34));
+		contentPane.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(4, 4, 0, 0));
@@ -75,19 +92,30 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			// ESTO NO SE VE EN LA VISTA PREVIA CUIDADO SOLO CUANDO SE CORRE EL PROGRMAA
 		}
 
-		JProgressBar progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
+		progressBar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 		progressBar.setStringPainted(true);
 		progressBar.setForeground(Color.DARK_GRAY);
-		progressBar.setBackground(Color.DARK_GRAY);
+		progressBar.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.add(progressBar);
+		progressBar.setMaximum(modelo.getTiempoMaximoJuego2()/1000); //sobre 1000 por estar en miliseg
 
-		btnIniciar = new JButton("Iniciar");
-		btnIniciar.setBackground(SystemColor.activeCaption);
-		btnIniciar.setForeground(SystemColor.desktop);
-		contentPane.add(btnIniciar);
+		txtPuntajes = new JTextArea();
+		txtPuntajes.setBackground(SystemColor.activeCaptionBorder);
+		txtPuntajes.setForeground(Color.BLACK);
+		txtPuntajes.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+		txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+		contentPane.add(txtPuntajes);
+
+		textField = new JTextField();
+		textField.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 17));
+		textField.setBackground(SystemColor.activeCaptionBorder);
+		contentPane.add(textField);
+		textField.setColumns(10);
 
 		btnExit = new JButton("Exit");
-		btnExit.setBackground(SystemColor.activeCaption);
+		btnExit.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
+		btnExit.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.add(btnExit);
 
 		evento();
@@ -98,10 +126,10 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	public void reordenarVista() {
 
 		for (int i = 0; i < buttons.length; i++) {
-		ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
-																									// recorriendo
+			ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
+																										// recorriendo
 																										// imagenes
-			
+
 			buttons[i].setIcon(ima[i]); // setIconNull para guardarlo
 		}
 
@@ -115,33 +143,25 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() instanceof JButton) {
 					String text = ((JButton) e.getSource()).getText();
-					if(aleatorio[Integer.parseInt(text)] != -1) {
-						
-				
-					buttons[Integer.parseInt(text)].setIcon(ima[Integer.parseInt(text)]);
-					par_seleccionado [sel] = Integer.parseInt(text);
-					sel = (sel + 1) % 2;
-					controller.logicaJuego(Integer.parseInt(text));
-					// System.out.println(text);
+					if (aleatorio[Integer.parseInt(text)] != -1 && active) {
+						buttons[Integer.parseInt(text)].setIcon(ima[Integer.parseInt(text)]);
+						par_seleccionado[sel] = Integer.parseInt(text);
+						sel = (sel + 1) % 2;
+						controller.logicaJuego(Integer.parseInt(text));
+						System.out.println(text);
 					}
 				}
 			}
+
 		};
 
-		btnIniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.logicaJuego(-1);
-			}
-		});
-		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				active = false;
 				controller.salirJuego();
 			}
 		});
 
-		
-	
 	}
 
 	@Override
@@ -149,13 +169,20 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		int estado = modelo.getEstadoJuego2();
 
+		System.out.println("estado: " + estado);
+
 		switch (estado) {
 		case 0:
 			this.setVisible(false);
+			active = false;
 			break;
 		case 1:
+			active = false;
 			aleatorio = modelo.getAleatorioJuego2_aux();
-			System.out.println(Arrays.toString(aleatorio));
+			aciertos = modelo.getAciertosJuego2();
+			desaciertos = modelo.getDesaciertosJuego2();
+			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+			// System.out.println(Arrays.toString(aleatorio));
 			reordenarVista();
 			this.setVisible(true);
 			break;
@@ -163,27 +190,82 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			for (int i = 0; i < buttons.length; i++) {
 				buttons[i].setIcon(null); // setIconNull para guardarlo
 			}
+
+			iniciarTimer();
+			active = true;
 			break;
 		case 3: // el juego ya empezado
-			aleatorio = modelo.getAleatorioJuego2_aux(); //actulizamos aleatorior con -1 aquellos que fueron descubiertos
+
+			aleatorio = modelo.getAleatorioJuego2_aux(); // actulizamos aleatoror con -1 aquellos que fueron
+															// descubiertos
+			aciertos = modelo.getAciertosJuego2();
+			desaciertos = modelo.getDesaciertosJuego2();
+			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+		
+			System.out.println(Arrays.toString(aleatorio));
+
 			break;
 		case 4: // el juego ya empezado
 
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			buttons[par_seleccionado[0]].setIcon(null);
-			buttons[par_seleccionado[1]].setIcon(null);			
+			active = false; // bloqueamos events listeners
+
+			Timer timer = new Timer(tiempo_error, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttons[par_seleccionado[0]].setIcon(null);
+					buttons[par_seleccionado[1]].setIcon(null);
+					aciertos = modelo.getAciertosJuego2();
+					desaciertos = modelo.getDesaciertosJuego2();
+					txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+					active = true;
+
+				}
+			});
+
+			timer.start();
+			timer.setRepeats(false);
+
 			break;
-		case 5: // el juego ya empezado
-			this.setVisible(false);
+		case 5: // el juego ya terminado
+
+			active = false;
+			System.out.println("Caso 5, termino");
+
+			// mostrsar mensaje de fializacion
+
+			// this.setVisible(false);
+
 			break;
 		default:
 			break;
 		}
+
+	}
+
+	private void iniciarTimer() {
+
+		aux_contador_tiempo = 0;
+
+		Timer timer = new Timer(1000, null); // cada un segundo
+
+		timer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				aux_contador_tiempo = aux_contador_tiempo + 1;
+				System.out.println("Contador: " + aux_contador_tiempo);
+				progressBar.setValue(aux_contador_tiempo);
+				if (modelo.getEstadoJuego2() == 0 || modelo.getEstadoJuego2() == 5) {
+			    	//System.out.println("Finalizado: " );
+					timer.stop();
+					finalizarTimer();
+				}
+			}
+		});
+
+
+		timer.start();
+
+	}
+
+	private void finalizarTimer() {
 
 	}
 

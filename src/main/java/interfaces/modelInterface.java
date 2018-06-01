@@ -19,11 +19,11 @@ public interface modelInterface {
 
 	void secuenciaJuego2(int i);
 
-	void finTemporizador();
+	void finTemporizador_juego2();
 
 	void inicioEstadisticasJuego2();
 
-	int resetTemporizador();
+	void setTemporizador_juego2();
 
 	void seleccionJuego(int i);
 
@@ -34,6 +34,12 @@ public interface modelInterface {
 	int getMostrarMenu();
 
 	int[] getAleatorioJuego2_aux();
+
+	int getAciertosJuego2();
+	
+	int getDesaciertosJuego2();
+
+	int getTiempoMaximoJuego2();
 
 	
 }
