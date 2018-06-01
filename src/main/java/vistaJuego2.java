@@ -98,7 +98,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		progressBar.setForeground(Color.DARK_GRAY);
 		progressBar.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.add(progressBar);
-		progressBar.setMaximum(modelo.getTiempoMaximoJuego2()/1000); //sobre 1000 por estar en miliseg
+		progressBar.setMaximum(modelo.getTiempoMaximoJuego2()/1000); //sobre 1000 por estar en miliseg  
 
 		txtPuntajes = new JTextArea();
 		txtPuntajes.setBackground(SystemColor.activeCaptionBorder);
