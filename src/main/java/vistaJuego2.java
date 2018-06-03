@@ -29,19 +29,16 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class vistaJuego2 extends JFrame implements vistaInterface, observerInterface {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private modelInterface modelo;
 	private controllerJuego2 controller;
 	private int aleatorio[]; // a cada posicion del arreglo le corresponde un boton
 	private JButton buttons[] = new JButton[12];
-	private JButton btnIniciar;
 	private JButton btnExit;
 	private JProgressBar progressBar;
 	private ActionListener listener;
@@ -53,7 +50,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	private int aciertos;
 	private int desaciertos;
 	private JTextArea txtPuntajes;
-	private JTextField textField;
+	private JTextField txtEstadoJuego;
 	private int aux_contador_tiempo;
 
 	public vistaJuego2(controllerJuego2 controller, modelInterface modelo) {
@@ -107,11 +104,13 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
 		contentPane.add(txtPuntajes);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 17));
-		textField.setBackground(SystemColor.activeCaptionBorder);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtEstadoJuego = new JTextField();
+		txtEstadoJuego.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEstadoJuego.setText("");
+		txtEstadoJuego.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 20));
+		txtEstadoJuego.setBackground(SystemColor.activeCaptionBorder);
+		contentPane.add(txtEstadoJuego);
+		txtEstadoJuego.setColumns(10);
 
 		btnExit = new JButton("Exit");
 		btnExit.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
@@ -182,7 +181,9 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			aciertos = modelo.getAciertosJuego2();
 			desaciertos = modelo.getDesaciertosJuego2();
 			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+			progressBar.setValue(0);
 			// System.out.println(Arrays.toString(aleatorio));
+			txtEstadoJuego.setText("Iniciando juego.");
 			reordenarVista();
 			this.setVisible(true);
 			break;
@@ -192,6 +193,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			}
 
 			iniciarTimer();
+			txtEstadoJuego.setText("Juego iniciado.");
 			active = true;
 			break;
 		case 3: // el juego ya empezado
@@ -229,6 +231,9 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 			active = false;
 			System.out.println("Caso 5, termino");
+			
+			txtEstadoJuego.setText("Juego terminado.");
+
 
 			// mostrsar mensaje de fializacion
 
@@ -250,10 +255,10 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		timer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				aux_contador_tiempo = aux_contador_tiempo + 1;
-				System.out.println("Contador: " + aux_contador_tiempo);
+			//	System.out.println("Contador: " + aux_contador_tiempo);
 				progressBar.setValue(aux_contador_tiempo);
 				if (modelo.getEstadoJuego2() == 0 || modelo.getEstadoJuego2() == 5) {
-			    	//System.out.println("Finalizado: " );
+			    	System.out.println("Finalizad timer iniciar tiempo: " );
 					timer.stop();
 					finalizarTimer();
 				}
@@ -266,7 +271,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	}
 
 	private void finalizarTimer() {
-
+		
 	}
 
 }

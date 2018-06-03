@@ -23,7 +23,6 @@ public class model implements modelInterface {
 	private int aciertosJuego2;
 	private int desaciertosJuego2;
 	private Timer timerjuego2;
-	private int tiempo_actual_juego2;
 	private int mostrarMenu;
 
 	private int aleatorioJuego2[] = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
@@ -105,7 +104,6 @@ public class model implements modelInterface {
 		presionada0_juego2 = presionada1_juego2 = -1;
 		aciertosJuego2 = 0;
 		desaciertosJuego2 = 0;
-		tiempo_actual_juego2 = 0;
 
 		System.out.println("InicioJuego2");
 
@@ -242,9 +240,13 @@ public class model implements modelInterface {
 		timerjuego2 = new Timer(tiempoMaxJuego2, new ActionListener() { // cada un segundo
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("FINALIZO Temporizador");
-			//	if(estadoJuego2 == 3 || estadoJuego2 == 4) { //PROMBLE ATERMINA Y ENTRA DOS VECE CONTROLAR!
+				if(estadoJuego2 == 3 || estadoJuego2 == 4) { //PROMBLE ATERMINA Y ENTRA DOS VECE CONTROLAR!
+				System.out.println("Finaliza el juego 2 " );
 					 finTemporizador_juego2();
-			//	}
+				} else {
+					
+					System.out.println("temporizador en mdoel no termino " );
+				}
 			}
 
 		});
