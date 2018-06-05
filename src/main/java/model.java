@@ -63,7 +63,7 @@ public class model implements modelInterface {
 			observerInterface observador = (observerInterface) listaObservers.get(i);
 			observador.actualizar();
 		}
-
+		
 	}
 
 	@Override
@@ -123,14 +123,15 @@ public class model implements modelInterface {
 		for (int i = 0; i < aleatorioJuego2.length; i++) {
 			aleatorioJuego2_aux[i] = (int) arrayMezclado.get(i);
 		}
-
+	
 		notificarObservador();
 
-		// crea un solo retardo de 10000
+		
+		// crea un solo retardo de 10000 para que las imagens aparezcan visibles durante 2,5 segundos
 		Timer timer = new Timer(2500, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Termino");
 				estadoJuego2 = 2;
+				System.out.println("Termino");
 				notificarObservador();
 				setTemporizador_juego2();
 			}
@@ -139,7 +140,8 @@ public class model implements modelInterface {
 
 		timer.start();
 		timer.setRepeats(false);
-
+		
+		
 	}
 
 	@Override

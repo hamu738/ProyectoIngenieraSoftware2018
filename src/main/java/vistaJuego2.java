@@ -204,7 +204,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 			desaciertos = modelo.getDesaciertosJuego2();
 			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
 		
-			System.out.println(Arrays.toString(aleatorio));
+		//	System.out.println(Arrays.toString(aleatorio));
 
 			break;
 		case 4: // el juego ya empezado
