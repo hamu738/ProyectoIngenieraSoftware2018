@@ -1,7 +1,5 @@
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import org.junit.Test;
@@ -55,7 +53,7 @@ public class testAciertos implements observerInterface {
 			}
 		}
 		
-		assertEquals(modelo.getAciertosJuego2(), 6);
+		assertEquals(modelo.getAciertosJuego2(), 7);
 		
 	}
 
