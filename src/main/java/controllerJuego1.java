@@ -33,6 +33,7 @@ public class controllerJuego1 implements controllerInterface {
 	@Override
 	public void logicaJuego(int i) {
 		// TODO Auto-generated method stub
+		modelo.secuenciaJuego1(i);
 
 	}
 

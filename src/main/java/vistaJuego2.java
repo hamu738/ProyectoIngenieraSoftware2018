@@ -1,22 +1,13 @@
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.lang.reflect.Array;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 import javax.swing.Timer;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+
 
 import interfaces.modelInterface;
 import interfaces.observerInterface;
@@ -27,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.DropMode;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -52,6 +42,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	private JTextArea txtPuntajes;
 	private JTextField txtEstadoJuego;
 	private int aux_contador_tiempo;
+	private Timer timer;
 
 	public vistaJuego2(controllerJuego2 controller, modelInterface modelo) {
 		setBackground(SystemColor.desktop);
@@ -95,7 +86,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		progressBar.setForeground(Color.DARK_GRAY);
 		progressBar.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.add(progressBar);
-		progressBar.setMaximum(modelo.getTiempoMaximoJuego2()/1000); //sobre 1000 por estar en miliseg  
+		progressBar.setMaximum(modelo.getTiempoMaximoJuego2() / 1000); // sobre 1000 por estar en miliseg
 
 		txtPuntajes = new JTextArea();
 		txtPuntajes.setBackground(SystemColor.activeCaptionBorder);
@@ -126,9 +117,6 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		for (int i = 0; i < buttons.length; i++) {
 			ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
-																										// recorriendo
-																										// imagenes
-
 			buttons[i].setIcon(ima[i]); // setIconNull para guardarlo
 		}
 
@@ -162,6 +150,64 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		});
 
 	}
+	
+	private void estado1() {
+
+		aleatorio = modelo.getAleatorioJuego2_aux();
+		aciertos = modelo.getAciertosJuego2();
+		desaciertos = modelo.getDesaciertosJuego2();
+		txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+		progressBar.setValue(0);
+		// System.out.println(Arrays.toString(aleatorio));
+		txtEstadoJuego.setText("Iniciando juego.");
+	}
+
+	private void estado2() {
+
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i].setIcon(null); // setIconNull para guardarlo
+		}
+		txtEstadoJuego.setText("Juego iniciado.");
+
+	}
+
+	private void estado3() {
+
+		aleatorio = modelo.getAleatorioJuego2_aux(); // actulizamos aleatoror con -1 aquellos que fueron
+		// descubiertos
+		aciertos = modelo.getAciertosJuego2();
+		desaciertos = modelo.getDesaciertosJuego2();
+		txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+
+		// System.out.println(Arrays.toString(aleatorio));
+	}
+
+	private void estado4() {
+
+		Timer timer = new Timer(tiempo_error, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttons[par_seleccionado[0]].setIcon(null);
+				buttons[par_seleccionado[1]].setIcon(null);
+				aciertos = modelo.getAciertosJuego2();
+				desaciertos = modelo.getDesaciertosJuego2();
+				txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
+				active = true;
+
+			}
+		});
+
+		timer.start();
+		timer.setRepeats(false);
+
+	}
+
+	private void estado5() {
+
+		System.out.println("Caso 5, termino");
+		txtEstadoJuego.setText("Juego terminado.");
+		// mostrsar mensaje de fializacion
+		// this.setVisible(false);
+	}
 
 	@Override
 	public void actualizar() {
@@ -172,73 +218,31 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		switch (estado) {
 		case 0:
-			this.setVisible(false);
 			active = false;
+			this.setVisible(false);
 			break;
 		case 1:
 			active = false;
-			aleatorio = modelo.getAleatorioJuego2_aux();
-			aciertos = modelo.getAciertosJuego2();
-			desaciertos = modelo.getDesaciertosJuego2();
-			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
-			progressBar.setValue(0);
-			// System.out.println(Arrays.toString(aleatorio));
-			txtEstadoJuego.setText("Iniciando juego.");
+			estado1();
 			reordenarVista();
 			this.setVisible(true);
 			break;
 		case 2:
-			for (int i = 0; i < buttons.length; i++) {
-				buttons[i].setIcon(null); // setIconNull para guardarlo
-			}
-
-			iniciarTimer();
-			txtEstadoJuego.setText("Juego iniciado.");
 			active = true;
+			estado2();
+			timer = iniciarTimer();
 			break;
 		case 3: // el juego ya empezado
-
-			aleatorio = modelo.getAleatorioJuego2_aux(); // actulizamos aleatoror con -1 aquellos que fueron
-															// descubiertos
-			aciertos = modelo.getAciertosJuego2();
-			desaciertos = modelo.getDesaciertosJuego2();
-			txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
-		
-		//	System.out.println(Arrays.toString(aleatorio));
-
+			estado3();
 			break;
 		case 4: // el juego ya empezado
-
 			active = false; // bloqueamos events listeners
-
-			Timer timer = new Timer(tiempo_error, new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					buttons[par_seleccionado[0]].setIcon(null);
-					buttons[par_seleccionado[1]].setIcon(null);
-					aciertos = modelo.getAciertosJuego2();
-					desaciertos = modelo.getDesaciertosJuego2();
-					txtPuntajes.setText("\n       Aciertos: " + aciertos + "\r\n\n       Desaciertos: " + desaciertos);
-					active = true;
-
-				}
-			});
-
-			timer.start();
-			timer.setRepeats(false);
-
+			estado4();
 			break;
 		case 5: // el juego ya terminado
-
 			active = false;
-			System.out.println("Caso 5, termino");
-			
-			txtEstadoJuego.setText("Juego terminado.");
-
-
-			// mostrsar mensaje de fializacion
-
-			// this.setVisible(false);
-
+			finalizarTimer(timer);
+			estado5();
 			break;
 		default:
 			break;
@@ -246,32 +250,31 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 	}
 
-	private void iniciarTimer() {
+	private Timer iniciarTimer() {
 
 		aux_contador_tiempo = 0;
-
 		Timer timer = new Timer(1000, null); // cada un segundo
-
 		timer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				aux_contador_tiempo = aux_contador_tiempo + 1;
-			//	System.out.println("Contador: " + aux_contador_tiempo);
+				// System.out.println("Contador: " + aux_contador_tiempo);
 				progressBar.setValue(aux_contador_tiempo);
-				if (modelo.getEstadoJuego2() == 0 || modelo.getEstadoJuego2() == 5) {
-			    	System.out.println("Finalizad timer iniciar tiempo: " );
-					timer.stop();
-					finalizarTimer();
-				}
+			/*	if (modelo.getEstadoJuego2() == 0 || modelo.getEstadoJuego2() == 5) {
+					// System.out.println("Finalizad timer iniciar tiempo: ");
+					finalizarTimer(timer); 
+				} */
 			}
 		});
 
-
 		timer.start();
+		return timer;
 
 	}
 
-	private void finalizarTimer() {
-		
+	private void finalizarTimer(Timer timer) {
+
+		timer.stop();
+
 	}
 
 }

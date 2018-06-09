@@ -1,5 +1,8 @@
 package interfaces;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 public interface modelInterface {
 	void registrarObserver(observerInterface o);
 
@@ -15,8 +18,8 @@ public interface modelInterface {
 
 	void finJuego2();
 
-	void secuenciaJuego1();
-
+	void secuenciaJuego1(int i);
+	
 	void secuenciaJuego2(int i);
 
 	void finTemporizador_juego2();
@@ -40,6 +43,13 @@ public interface modelInterface {
 	int getDesaciertosJuego2();
 
 	int getTiempoMaximoJuego2();
-
 	
-}
+	ArrayList<Point> getPuntos_mezclados();
+
+	ArrayList<Point> getVectorInicialJuego1();
+
+	void finTemporizador_juego1();
+
+
+
+} 
