@@ -24,8 +24,6 @@ public interface modelInterface {
 
 	void finTemporizador_juego2();
 
-	void inicioEstadisticasJuego2();
-
 	void setTemporizador_juego2();
 
 	void seleccionJuego(int i);

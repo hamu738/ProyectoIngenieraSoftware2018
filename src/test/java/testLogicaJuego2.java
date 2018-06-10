@@ -1,3 +1,6 @@
+
+
+
 import static org.junit.Assert.assertArrayEquals;
 
 import java.util.ArrayList;
@@ -77,7 +80,7 @@ public class testLogicaJuego2 implements observerInterface {
 
 		// this.latch.countDown();
 
-		System.out.println("ESTADO " + modelo.getEstadoJuego2());
+		//System.out.println("ESTADO " + modelo.getEstadoJuego2());
 
 		if (estados.isEmpty()) {
 			estados.add(modelo.getEstadoJuego2());

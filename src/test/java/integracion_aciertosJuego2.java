@@ -11,7 +11,7 @@ import interfaces.observerInterface;
 
 public class integracion_aciertosJuego2 implements observerInterface {
 
-	private modelInterface modelo;
+	private model modelo;
 	private int aleatorio[];
 
 	private Semaphore semaphore = new Semaphore(1, true);
@@ -21,15 +21,14 @@ public class integracion_aciertosJuego2 implements observerInterface {
 
 		modelo = new model();
 		controllerMenuPrincipal menuPrincipal = new controllerMenuPrincipal(modelo);
-		controllerJuego1 controllerJuego1 = new controllerJuego1((model) modelo);
-		controllerJuego2 controllerJuego2 = new controllerJuego2((model) modelo);
-		
-		
+		controllerJuego1 controllerJuego1 = new controllerJuego1(modelo);
+		controllerJuego2 controllerJuego2 = new controllerJuego2(modelo);
+
 		modelo.registrarObserver(this);
 
 		semaphore = new Semaphore(1, true);
 
-		controllerJuego2.seleccionJuego(2); // seleccionamos juego 2
+		menuPrincipal.seleccionJuego(2); // seleccionamos juego 2
 		semaphore.acquire(); // espero estado 1
 		semaphore.acquire(); // espero estado 2
 
@@ -44,7 +43,7 @@ public class integracion_aciertosJuego2 implements observerInterface {
 			int posicion = find(aleatorio, boton, a_partir_de);
 			a_partir_de = posicion;
 
-			controllerJuego2.logicaJuego(posicion); //			modelo.secuenciaJuego2(posicion);
+			controllerJuego2.logicaJuego(posicion); // modelo.secuenciaJuego2(posicion);
 
 			logica = (logica + 1) % 2;
 			if (logica == 0) {
@@ -58,9 +57,9 @@ public class integracion_aciertosJuego2 implements observerInterface {
 				semaphore = new Semaphore(1, true);
 			}
 		}
-		
+
 		assertEquals(modelo.getAciertosJuego2(), 6);
-		
+
 	}
 
 	@Override

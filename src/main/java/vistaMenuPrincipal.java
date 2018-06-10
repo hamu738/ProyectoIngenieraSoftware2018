@@ -1,6 +1,9 @@
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.observerInterface;
@@ -33,7 +36,7 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 		this.controller = controller;
 		this.modelo = modelo;
 		modelo.registrarObserver((observerInterface) this);
-		crearVista(); // IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING Y COMENTAR PARA
+	//	crearVista(); // IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING Y COMENTAR PARA
 						// SU USO COMUN Y CORRIENTE DEL PROGRAMA
 
 	}

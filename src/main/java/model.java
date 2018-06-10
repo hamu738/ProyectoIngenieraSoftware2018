@@ -1,3 +1,4 @@
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,7 @@ import interfaces.observerInterface;
 public class model implements modelInterface {
 
 	private ArrayList<observerInterface> listaObservers;
-	private int estadoJuego1;
+	public int estadoJuego1;
 	private int estadoJuego2;
 	private int logicaJuego2;
 	private int presionada0_juego2;
@@ -24,11 +25,11 @@ public class model implements modelInterface {
 
 	private int aleatorioJuego2[] = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
 	private int aleatorioJuego2_aux[] = new int[aleatorioJuego2.length];
-	private int tiempoMaxJuego2 = 15000; // 15 segundos
+	private int tiempoMaxJuego2 = 20000; // 20 segundos
 
 	// juego1
 	private ArrayList<Point> puntos_solution = new ArrayList<Point>();
-	private ArrayList<Point> puntos_mezclados = new ArrayList<Point>();
+	public ArrayList<Point> puntos_mezclados = new ArrayList<Point>();
 
 	public model() {
 
@@ -36,6 +37,7 @@ public class model implements modelInterface {
 		estadoJuego1 = 0;
 		estadoJuego2 = 0;
 		mostrarMenu = 1;
+		vector_inicial_juego1();
 
 	}
 
@@ -58,7 +60,7 @@ public class model implements modelInterface {
 	@Override
 	public void notificarObservador() {
 
-		System.out.println("notifico");
+		// System.out.println("notifico");
 
 		for (int i = 0; i < listaObservers.size(); i++) {
 			observerInterface observador = (observerInterface) listaObservers.get(i);
@@ -74,14 +76,14 @@ public class model implements modelInterface {
 			estadoJuego1 = 1;
 			estadoJuego2 = 0;
 			mostrarMenu = 0;
-			System.out.println("Aprieto  rompe");
+			// System.out.println("Aprieto rompe");
 			inicioJuego1();
 
 		} else if (i == 2) {
 			estadoJuego1 = 0;
 			estadoJuego2 = 1;
 			mostrarMenu = 0;
-			System.out.println("Aprieto  memoria");
+			// System.out.println("Aprieto memoria");
 			inicioJuego2();
 		}
 
@@ -91,9 +93,9 @@ public class model implements modelInterface {
 	public void inicioJuego1() {
 
 		//// Collections.shuffle(puntos_mezclados);
-		 Collections.swap(puntos_mezclados, 10, 11);
+		Collections.swap(puntos_mezclados, 10, 11);
 
-		System.out.println("puntos mezclados " + puntos_mezclados);
+		// System.out.println("puntos mezclados " + puntos_mezclados);
 		// puntos_mezclados.add(new Point(3, 2)); // agregamos boton vacio al final
 
 		estadoJuego1 = 1;
@@ -112,7 +114,7 @@ public class model implements modelInterface {
 		aciertosJuego2 = 0;
 		desaciertosJuego2 = 0;
 
-		System.out.println("InicioJuego2");
+		// System.out.println("InicioJuego2");
 
 		// creamos un arreglo con las variables 0,0,1,1 ... 5,5 // que son las imagens
 		// 0,0,1,1, ... 5,5 // las mezclamos
@@ -137,7 +139,7 @@ public class model implements modelInterface {
 		Timer timer = new Timer(2500, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				estadoJuego2 = 2;
-				System.out.println("Termino");
+				// System.out.println("Termino");
 				notificarObservador();
 				setTemporizador_juego2();
 			}
@@ -172,8 +174,8 @@ public class model implements modelInterface {
 	@Override
 	public void secuenciaJuego1(int boton) {
 
-		System.out.println(boton);
-		System.out.println(puntos_mezclados.get(boton));
+		// System.out.println(boton);
+		// System.out.println(puntos_mezclados.get(boton));
 
 		// tengo que buscar el boton point 3,2 que es el boton final
 		int last_index = 0;
@@ -187,7 +189,7 @@ public class model implements modelInterface {
 			}
 		}
 
-		System.out.println("ultimo boton " + last_index);
+		// System.out.println("ultimo boton " + last_index);
 		// indice del boton en el arreglo es boton
 		// chequeamos si el boton es contiguo al boton vacio
 
@@ -206,7 +208,7 @@ public class model implements modelInterface {
 			estadoJuego1 = 3;
 			notificarObservador();
 
-			finTemporizador_juego1(); //corremos un timer y luego mostramos menu principal
+			finTemporizador_juego1(); // corremos un timer y luego mostramos menu principal
 
 		}
 
@@ -224,11 +226,11 @@ public class model implements modelInterface {
 
 			presionada1_juego2 = i;
 
-			System.out.println(presionada0_juego2);
+		/*	System.out.println(presionada0_juego2);
 			System.out.println(presionada1_juego2);
 
 			System.out.println(aleatorioJuego2_aux[presionada0_juego2]);
-			System.out.println(aleatorioJuego2_aux[presionada1_juego2]);
+			System.out.println(aleatorioJuego2_aux[presionada1_juego2]); */
 
 			if (aleatorioJuego2_aux[presionada0_juego2] == aleatorioJuego2_aux[presionada1_juego2]) {
 
@@ -240,7 +242,7 @@ public class model implements modelInterface {
 				if (aciertosJuego2 == 6) {
 					finTemporizador_juego2();
 				}
-				System.out.println("acierto: " + aciertosJuego2);
+				//System.out.println("acierto: " + aciertosJuego2);
 			} else {
 				desaciertosJuego2 = desaciertosJuego2 + 1;
 				estadoJuego2 = 4;
@@ -256,7 +258,7 @@ public class model implements modelInterface {
 	@Override
 	public void finTemporizador_juego1() {
 
-		System.out.println("Termino juego 1");
+	//	System.out.println("Termino juego 1");
 
 		// crea un solo retardo de 10000
 		Timer timer = new Timer(5000, new ActionListener() {
@@ -275,7 +277,7 @@ public class model implements modelInterface {
 	public void finTemporizador_juego2() {
 
 		estadoJuego2 = 5;
-		System.out.println("Termino juego 2");
+		//	System.out.println("Termino juego 2");
 		notificarObservador();
 
 		// crea un solo retardo de 10000
@@ -291,26 +293,22 @@ public class model implements modelInterface {
 
 	}
 
-	@Override
-	public void inicioEstadisticasJuego2() {
-
-	}
 
 	@Override
 	public void setTemporizador_juego2() {
 
-		System.out.println("Inicio Temporizador");
+		//	System.out.println("Inicio Temporizador");
 
 		timerjuego2 = new Timer(tiempoMaxJuego2, new ActionListener() { // cada segundo
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("FINALIZO Temporizador");
+				//	System.out.println("FINALIZO Temporizador");
 				if (estadoJuego2 == 3 || estadoJuego2 == 4) {
 					// PROMBLE ATERMINA Y ENTRA DOS VECE CONTROLAR!
-					System.out.println("Finaliza el juego 2 ");
+					//		System.out.println("Finaliza el juego 2 ");
 					finTemporizador_juego2();
 				} else {
 
-					System.out.println("temporizador en mdoel no termino ");
+					//	System.out.println("temporizador en mdoel no termino ");
 				}
 			}
 
@@ -363,6 +361,11 @@ public class model implements modelInterface {
 	@Override
 	public ArrayList<Point> getVectorInicialJuego1() {
 
+		return puntos_mezclados;
+	}
+
+	public void vector_inicial_juego1() {
+
 		for (int i = 0; i < 4; i++) { // filas 0 a 3
 			for (int j = 0; j < 3; j++) { // columnas de 0 a 4
 				// agregamos todos menos el ultimo 3,2 que siempre esta en el mismo lugar punto
@@ -373,7 +376,6 @@ public class model implements modelInterface {
 
 		}
 
-		return puntos_mezclados;
 	}
 
 }
