@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 import interfaces.vistaInterface;
@@ -135,7 +134,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 						par_seleccionado[sel] = Integer.parseInt(text);
 						sel = (sel + 1) % 2;
 						controller.logicaJuego(Integer.parseInt(text));
-						System.out.println(text);
+						// System.out.println(text);
 					}
 				}
 			}
@@ -150,7 +149,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		});
 
 	}
-	
+
 	private void estado1() {
 
 		aleatorio = modelo.getAleatorioJuego2_aux();
@@ -203,10 +202,9 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 	private void estado5() {
 
-		System.out.println("Caso 5, termino");
+		// System.out.println("Caso 5, termino");
 		txtEstadoJuego.setText("Juego terminado.");
-		// mostrsar mensaje de fializacion
-		// this.setVisible(false);
+
 	}
 
 	@Override
@@ -214,7 +212,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		int estado = modelo.getEstadoJuego2();
 
-		System.out.println("estado: " + estado);
+		// System.out.println("estado: " + estado);
 
 		switch (estado) {
 		case 0:
@@ -257,12 +255,8 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		timer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				aux_contador_tiempo = aux_contador_tiempo + 1;
-				// System.out.println("Contador: " + aux_contador_tiempo);
 				progressBar.setValue(aux_contador_tiempo);
-			/*	if (modelo.getEstadoJuego2() == 0 || modelo.getEstadoJuego2() == 5) {
-					// System.out.println("Finalizad timer iniciar tiempo: ");
-					finalizarTimer(timer); 
-				} */
+
 			}
 		});
 
@@ -273,7 +267,10 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 	private void finalizarTimer(Timer timer) {
 
-		timer.stop();
+		try {
+			timer.stop();
+		} catch (Exception e) {
+		}
 
 	}
 

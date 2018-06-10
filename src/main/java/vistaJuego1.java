@@ -1,13 +1,11 @@
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 import interfaces.vistaInterface;
@@ -30,8 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collections;
-
 import javax.imageio.ImageIO;
 
 public class vistaJuego1 extends JFrame implements vistaInterface, observerInterface {
@@ -43,8 +39,12 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 	private modelInterface modelo;
 	private controllerJuego1 controller;
 
-	private ArrayList<boton> buttons_original;
-	private ArrayList<boton> buttons_reordenados;
+	//private ArrayList<boton> buttons_original;	//////////////
+
+	//private ArrayList<boton> buttons_reordenados;	//////////////
+
+	private ArrayList<JButton> buttons_original;
+	private ArrayList<JButton> buttons_reordenados;
 	private ArrayList<Point> puntos_mezclados;
 	private JPanel panel;
 	private JButton btnExit;
@@ -56,7 +56,9 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 	private int height;
 
 	private ActionListener listener;
-	private boton lastButton;
+	////////////// private boton lastButton;
+	private JButton lastButton; 	//////////////
+
 	private Image image;
 
 	private final int DESIRED_WIDTH = 600;
@@ -70,17 +72,14 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		modelo.registrarObserver((observerInterface) this);
 		inicio = 0;
 		active = true;
-
-		// crearVista(); // IMPORTANTE DESCOMENTAR ESTA LINEA CUANDO SE SELCCIONA DESING
-		// Y COMENTAR PARA
-		// SU USO COMUN Y CORRIENTE DEL PROGRAMA
-
+		// crearVista(); 
 	}
 
 	@Override
 	public void crearVista() {
 
-		buttons_original = new ArrayList<boton>();
+////////////// buttons_original = new ArrayList<boton>(); //////////////
+		buttons_original = new ArrayList<JButton>();
 
 		panel = new JPanel();
 		panel.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -88,7 +87,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 		// cargamos imagen
 		try {
-			source = ImageIO.read(new File(getClass().getResource("./imagenes/sid.jpg").toURI()));
+			source = ImageIO.read(new File(getClass().getResource("./imagenes/imagenjuego1.jpg").toURI()));
 			int h = getNewHeight(source.getWidth(), source.getHeight());
 			resized = resizeImage(source, DESIRED_WIDTH, h, BufferedImage.TYPE_INT_ARGB);
 		} catch (IOException | URISyntaxException e) {
@@ -107,14 +106,18 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 				image = createImage(new FilteredImageSource(resized.getSource(),
 						new CropImageFilter(j * width / 3, i * height / 4, (width / 3), height / 4)));
-				boton button = new boton(image);
+				ImageIcon imagen = new ImageIcon(image);  ////////
+			////////	boton button = new boton(image); ////////
+				JButton button = new JButton("");  ////////
+				button.setIcon(imagen);  ////////
 				button.putClientProperty("position", new Point(i, j));
 
 				if (i == 3 && j == 2) {
-					lastButton = new boton();
+					 ////////	lastButton = new boton();  ////////		
+					lastButton = new JButton("");
 					lastButton.setBorderPainted(false);
 					lastButton.setContentAreaFilled(false);
-					lastButton.setLastButton();
+			//////		lastButton.setLastButton(); //////
 					lastButton.putClientProperty("position", new Point(i, j));
 				} else {
 					buttons_original.add(button);
@@ -125,9 +128,10 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		buttons_original.add(lastButton);
 
 		puntos_mezclados = modelo.getVectorInicialJuego1();
-		buttons_reordenados = new ArrayList<boton>();
+	//////	buttons_reordenados = new ArrayList<boton>(); ////////////
+		buttons_reordenados = new ArrayList<JButton>(); 
 
-		System.out.println(puntos_mezclados);
+	//	System.out.println(puntos_mezclados);
 
 		// reordenar buttons_original en buttons_mezclados segun getPuntosmezclados
 
@@ -173,7 +177,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 					if (active) {
 						Point point = (Point) ((JButton) e.getSource()).getClientProperty("position");
-						System.out.println(point);
+					//	System.out.println(point);
 						int index = buttons_reordenados.indexOf((JButton) e.getSource()); // inidice en el arreglo de  botones																				
 						controller.logicaJuego(index);
 					}
@@ -196,7 +200,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 		int estado = modelo.getEstadoJuego1();
 
-		System.out.println("estado juego 1: " + estado);
+	//	System.out.println("estado juego 1: " + estado);
 
 		switch (estado) {
 		case 0:
@@ -255,7 +259,6 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 			}
 		}
 
-		// }
 
 		/*
 		 * for (int i = 0; i < buttons_reordenados.size(); i++) {

@@ -1,6 +1,5 @@
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import org.junit.Test;
@@ -8,14 +7,12 @@ import org.junit.Test;
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 
-//prueba la logica del juego 2, que la transicion se de los estados 0,1,2,3,4,5
+// acierta todos lo valores de forma correcta los aciertos deben ser 6
 
-public class testLogicaJuego2 implements observerInterface {
+public class testAciertosJuego2 implements observerInterface {
 
 	private modelInterface modelo;
 	private int aleatorio[];
-	private ArrayList<Integer> estados;
-	private ArrayList<Integer> estados_correctos;
 
 	private Semaphore semaphore = new Semaphore(1, true);
 
@@ -24,15 +21,6 @@ public class testLogicaJuego2 implements observerInterface {
 
 		modelo = new model();
 		modelo.registrarObserver(this);
-
-		estados = new ArrayList<Integer>();
-		estados_correctos = new ArrayList<Integer>();
-
-		// pasamos del estado 1, 3, 5 //el 2 no se contabiliza por se parte de un swing
-		// timmer
-		estados_correctos.add(1);
-		estados_correctos.add(3);
-		estados_correctos.add(5);
 
 		semaphore = new Semaphore(1, true);
 
@@ -48,7 +36,6 @@ public class testLogicaJuego2 implements observerInterface {
 						// luego 1 luego los 2, etc.
 
 			aleatorio = modelo.getAleatorioJuego2_aux();
-			// System.out.println("ALEATORIO " + Arrays.toString(aleatorio));
 			int posicion = find(aleatorio, boton, a_partir_de);
 			a_partir_de = posicion;
 
@@ -65,28 +52,15 @@ public class testLogicaJuego2 implements observerInterface {
 				semaphore = new Semaphore(1, true);
 			}
 		}
-
-		// System.out.println("Estados " + estados.toString());
-
-		assertArrayEquals(estados_correctos.toArray(), estados.toArray());
-
+		
+		assertEquals(modelo.getAciertosJuego2(), 6);
+		
 	}
 
 	@Override
 	public void actualizar() {
 
-		// this.latch.countDown();
-
-		System.out.println("ESTADO " + modelo.getEstadoJuego2());
-
-		if (estados.isEmpty()) {
-			estados.add(modelo.getEstadoJuego2());
-		} else {
-			if (modelo.getEstadoJuego2() != estados.get(estados.size() - 1)) { //agregamos estados nuevos
-				estados.add(modelo.getEstadoJuego2());
-			}
-		}
-
+		// System.out.println("ESTADO " + modelo.getEstadoJuego2());
 		this.semaphore.release();
 
 	}

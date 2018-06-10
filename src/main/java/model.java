@@ -1,14 +1,8 @@
-import java.awt.List;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.CropImageFilter;
-import java.awt.image.FilteredImageSource;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
@@ -96,8 +90,8 @@ public class model implements modelInterface {
 	@Override
 	public void inicioJuego1() {
 
-		// Collections.shuffle(puntos_mezclados);
-		Collections.swap(puntos_mezclados, 10, 11);
+		//// Collections.shuffle(puntos_mezclados);
+		 Collections.swap(puntos_mezclados, 10, 11);
 
 		System.out.println("puntos mezclados " + puntos_mezclados);
 		// puntos_mezclados.add(new Point(3, 2)); // agregamos boton vacio al final

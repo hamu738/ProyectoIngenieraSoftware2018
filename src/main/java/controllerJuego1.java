@@ -3,10 +3,9 @@ import interfaces.modelInterface;
 import interfaces.vistaInterface;
 
 public class controllerJuego1 implements controllerInterface {
-	
+
 	private modelInterface modelo;
 	private vistaInterface vistaJuego1;
-	
 
 	public controllerJuego1(model modelo) {
 		this.modelo = modelo;
@@ -16,15 +15,13 @@ public class controllerJuego1 implements controllerInterface {
 
 	@Override
 	public void inicioJuego() {
-				
+
 		modelo.inicioJuego1();
 
 	}
 
-
 	@Override
 	public void salirJuego() {
-
 
 		modelo.finJuego1();
 
@@ -38,21 +35,9 @@ public class controllerJuego1 implements controllerInterface {
 	}
 
 	@Override
-	public void tiempoLimite() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void iniciarPuntuacion() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void seleccionJuego(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
