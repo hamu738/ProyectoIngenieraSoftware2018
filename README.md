@@ -8,4 +8,4 @@ Sleiman, Mohamad |  Work Line |
 Zabal, Guillermo |  Work Line |
 
 ### Release:
-* [v1.0.0](https://github.com/diegosl/ProyectoFinalIngenieriaDeSoftware/blob/master/ejecutable/MindGame.jar)
+* [v1.0.0](https://github.com/hamu738/ProyectoIngenieraSoftware2018/releases/tag/v1.0.0)
