@@ -1,3 +1,4 @@
+package testDeIntegracion;
 import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.Semaphore;
@@ -6,6 +7,10 @@ import org.junit.Test;
 
 import interfaces.modelInterface;
 import interfaces.observerInterface;
+import mvc.controllerJuego1;
+import mvc.controllerJuego2;
+import mvc.controllerMenuPrincipal;
+import mvc.model;
 
 // acierta todos lo valores de forma correcta los aciertos deben ser 6
 

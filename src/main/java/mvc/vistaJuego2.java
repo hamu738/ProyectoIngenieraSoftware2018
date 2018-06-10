@@ -1,3 +1,4 @@
+package mvc;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -116,7 +117,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 	public void reordenarVista() {
 
 		for (int i = 0; i < buttons.length; i++) {
-			ima[i] = new ImageIcon(this.getClass().getResource("imagenes/" + aleatorio[i] + ".jpg")); // vamos
+			ima[i] = new ImageIcon(this.getClass().getResource("../imagenes/" + aleatorio[i] + ".jpg")); // vamos
 			buttons[i].setIcon(ima[i]); // setIconNull para guardarlo
 		}
 

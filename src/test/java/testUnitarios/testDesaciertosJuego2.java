@@ -1,3 +1,4 @@
+package testUnitarios;
 
 
 
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import interfaces.modelInterface;
 import interfaces.observerInterface;
+import mvc.model;
 
 // acierta todos lo valores de forma correcta los aciertos deben ser 6
 

@@ -1,37 +1,36 @@
-
+package mvc;
 import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.vistaInterface;
 
-public class controllerJuego1 implements controllerInterface {
+public class controllerJuego2 implements controllerInterface {
 
 	private modelInterface modelo;
-	private vistaInterface vistaJuego1;
+	private vistaInterface vistaJuego2;
 
-	public controllerJuego1(model modelo) {
+	public controllerJuego2(model modelo) {
 		this.modelo = modelo;
-		vistaJuego1 = new vistaJuego1(this, modelo);
-		vistaJuego1.crearVista();
+		vistaJuego2 = new vistaJuego2(this, modelo);
+		vistaJuego2.crearVista();
 	}
 
 	@Override
 	public void inicioJuego() {
 
-		modelo.inicioJuego1();
+		modelo.inicioJuego2();
 
 	}
 
 	@Override
 	public void salirJuego() {
 
-		modelo.finJuego1();
+		modelo.finJuego2();
 
 	}
 
 	@Override
 	public void logicaJuego(int i) {
-		// TODO Auto-generated method stub
-		modelo.secuenciaJuego1(i);
+		modelo.secuenciaJuego2(i);
 
 	}
 

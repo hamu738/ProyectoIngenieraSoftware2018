@@ -1,3 +1,4 @@
+package mvc;
 
 
 import javax.swing.BorderFactory;
@@ -81,7 +82,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 		// cargamos imagen
 		try {
-			source = ImageIO.read(new File(getClass().getResource("/imagenes/imagenjuego1.jpg").toURI()));
+			source = ImageIO.read(new File(getClass().getResource("../imagenes/imagenjuego1.jpg").toURI()));
 			int h = getNewHeight(source.getWidth(), source.getHeight());
 			resized = resizeImage(source, DESIRED_WIDTH, h, BufferedImage.TYPE_INT_ARGB);
 		} catch (IOException | URISyntaxException e) {

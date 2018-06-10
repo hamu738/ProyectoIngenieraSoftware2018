@@ -5,6 +5,7 @@
  */
 import org.junit.Test;
 
+import mvc.Library;
 
 import static org.junit.Assert.*;
 

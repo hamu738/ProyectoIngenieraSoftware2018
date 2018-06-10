@@ -1,3 +1,4 @@
+package testUnitarios;
 import static org.junit.Assert.assertArrayEquals;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -5,6 +6,7 @@ import java.util.concurrent.Semaphore;
 import org.junit.Test;
 import interfaces.modelInterface;
 import interfaces.observerInterface;
+import mvc.model;
 
 //prueba la logica del juego 1, que la transicion sea de los estados 0 1 2
 
