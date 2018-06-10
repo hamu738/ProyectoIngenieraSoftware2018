@@ -194,7 +194,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 		switch (estado) {
 		case 0:
-			this.setVisible(false); //////////////
+			this.setVisible(false); 
 			break;
 		case 1:
 			// iniciando juego 1
