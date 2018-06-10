@@ -9,3 +9,4 @@ Zabal, Guillermo |  Work Line |
 
 ### Release:
 * [v1.0.0](https://github.com/hamu738/ProyectoIngenieraSoftware2018/releases/tag/v1.0.0)
+ 
