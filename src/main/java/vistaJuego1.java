@@ -209,7 +209,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 			reordenarVista();
 			break;
 		case 3:
-			// juego terminado
+			// juego terminado 
 			reordenarVista();
 			active = false; //desactivamos clicks sobre imagen ver en evento!
 			txtEstadoJuego.setText("\n        ¡Finalizado!");
