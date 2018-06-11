@@ -214,7 +214,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		int estado = modelo.getEstadoJuego2();
 
-		// System.out.println("estado: " + estado);
+		 System.out.println("estado: " + estado);
 
 		switch (estado) {
 		case 0:

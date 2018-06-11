@@ -282,7 +282,7 @@ public class model implements modelInterface {
 		notificarObservador();
 
 		// crea un solo retardo de 10000
-		Timer timer = new Timer(5000, new ActionListener() {
+		Timer timer = new Timer(2000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finJuego2();
 			}
@@ -303,7 +303,7 @@ public class model implements modelInterface {
 		timerjuego2 = new Timer(tiempoMaxJuego2, new ActionListener() { // cada segundo
 			public void actionPerformed(ActionEvent e) {
 				//	System.out.println("FINALIZO Temporizador");
-				if (estadoJuego2 == 3 || estadoJuego2 == 4) {
+				if (estadoJuego2 == 3 || estadoJuego2 == 4 || estadoJuego2 == 2) {
 					// PROMBLE ATERMINA Y ENTRA DOS VECE CONTROLAR!
 					//		System.out.println("Finaliza el juego 2 ");
 					finTemporizador_juego2();
