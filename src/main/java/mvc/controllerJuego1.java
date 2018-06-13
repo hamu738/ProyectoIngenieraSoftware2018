@@ -1,5 +1,4 @@
 package mvc;
-
 import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.vistaInterface;

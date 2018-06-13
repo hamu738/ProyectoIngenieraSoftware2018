@@ -73,7 +73,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 	@Override
 	public void crearVista() {
-
+				
 		buttons_original = new ArrayList<JButton>();
 
 		panel = new JPanel();
@@ -153,6 +153,8 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		btnExit.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 		btnExit.setBackground(SystemColor.activeCaptionBorder);
 		panel.add(btnExit);
+		
+		
 
 		evento();
 

@@ -64,7 +64,6 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		// importamos imagen que estan en carpeta src
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 756, 562);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaptionBorder);
@@ -108,6 +107,8 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 		btnExit.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
 		btnExit.setBackground(SystemColor.activeCaptionBorder);
 		contentPane.add(btnExit);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		evento();
 
@@ -214,7 +215,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		int estado = modelo.getEstadoJuego2();
 
-		 System.out.println("estado: " + estado);
+		// System.out.println("estado: " + estado);
 
 		switch (estado) {
 		case 0:

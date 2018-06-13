@@ -12,6 +12,7 @@ public class controllerJuego2 implements controllerInterface {
 		this.modelo = modelo;
 		vistaJuego2 = new vistaJuego2(this, modelo);
 		vistaJuego2.crearVista();
+		
 	}
 
 	@Override
