@@ -1,18 +1,22 @@
-package testDeintegracion;
+package testUnitarios;
+
+
+
 import static org.junit.Assert.assertEquals;
+
 import java.util.concurrent.Semaphore;
+
 import org.junit.Test;
+
+import interfaces.modelInterface;
 import interfaces.observerInterface;
-import mvc.controllerJuego1;
-import mvc.controllerJuego2;
-import mvc.controllerMenuPrincipal;
 import mvc.model;
 
 // acierta todos lo valores de forma correcta los aciertos deben ser 6
 
-public class integracion_aciertosJuego2 implements observerInterface {
+public class testAciertosJuego2 implements observerInterface {
 
-	private model modelo;
+	private modelInterface modelo;
 	private int aleatorio[];
 
 	private Semaphore semaphore = new Semaphore(1, true);
@@ -21,16 +25,11 @@ public class integracion_aciertosJuego2 implements observerInterface {
 	public void test() throws InterruptedException {
 
 		modelo = new model();
-		controllerMenuPrincipal menuPrincipal = new controllerMenuPrincipal(modelo);
-		@SuppressWarnings("unused")
-		controllerJuego1 controllerJuego1 = new controllerJuego1(modelo);
-		controllerJuego2 controllerJuego2 = new controllerJuego2(modelo);
-
 		modelo.registrarObserver(this);
 
 		semaphore = new Semaphore(1, true);
 
-		menuPrincipal.seleccionJuego(2); // seleccionamos juego 2
+		modelo.seleccionJuego(2); // seleccionamos juego 2
 		semaphore.acquire(); // espero estado 1
 		semaphore.acquire(); // espero estado 2
 
@@ -45,8 +44,7 @@ public class integracion_aciertosJuego2 implements observerInterface {
 			int posicion = find(aleatorio, boton, a_partir_de);
 			a_partir_de = posicion;
 
-			controllerJuego2.logicaJuego(posicion); // modelo.secuenciaJuego2(posicion);
-
+			modelo.secuenciaJuego2(posicion);
 			logica = (logica + 1) % 2;
 			if (logica == 0) {
 				boton = boton + 1;
@@ -60,11 +58,8 @@ public class integracion_aciertosJuego2 implements observerInterface {
 			}
 		}
 		
-
-		//assertEquals(modelo.getAciertosJuego2(), 6);
-		assertEquals(6, 6);
-
-
+		assertEquals(modelo.getAciertosJuego2(), 6);
+		
 	}
 
 	@Override
