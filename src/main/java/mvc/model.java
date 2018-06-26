@@ -10,9 +10,10 @@ import javax.swing.Timer;
 
 import interfaces.modelInterface;
 import interfaces.observerInterface;
+import interfaces.timerInterface;
 
-public class model implements modelInterface {
-
+public class model implements modelInterface, observerInterface  {
+	
 	private ArrayList<observerInterface> listaObservers;
 	public int estadoJuego1;
 	private int estadoJuego2;
@@ -21,12 +22,12 @@ public class model implements modelInterface {
 	private int presionada1_juego2;
 	private int aciertosJuego2;
 	private int desaciertosJuego2;
-	private Timer timerjuego2;
+	private timerJuego2 TimerJuego2;
 	private int mostrarMenu;
 
 	private int aleatorioJuego2[] = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
 	private int aleatorioJuego2_aux[] = new int[aleatorioJuego2.length];
-	private int tiempoMaxJuego2 = 20000; // 20 segundos
+	private int tiempoMaxJuego2 = 15000; // 15 segundos
 
 	// juego1
 	private ArrayList<Point> puntos_solution = new ArrayList<Point>();
@@ -93,8 +94,8 @@ public class model implements modelInterface {
 	@Override
 	public void inicioJuego1() {
 
-		//// Collections.shuffle(puntos_mezclados);
-		Collections.swap(puntos_mezclados, 10, 11);
+		Collections.shuffle(puntos_mezclados);
+		////Collections.swap(puntos_mezclados, 10, 11);
 
 		// System.out.println("puntos mezclados " + puntos_mezclados);
 		// puntos_mezclados.add(new Point(3, 2)); // agregamos boton vacio al final
@@ -103,12 +104,15 @@ public class model implements modelInterface {
 
 		notificarObservador();
 
-	}
+	} 
 
 	@Override
 	public void inicioJuego2() {
 
 		// funcion que restea variables de juego2
+				
+		TimerJuego2 = (timerJuego2) timerJuego2.getInstance();
+		TimerJuego2.registrarObserver(this);
 
 		logicaJuego2 = 0;
 		presionada0_juego2 = presionada1_juego2 = -1;
@@ -279,6 +283,8 @@ public class model implements modelInterface {
 
 		estadoJuego2 = 5;
 		//	System.out.println("Termino juego 2");
+		TimerJuego2.terminarTimer();
+		
 		notificarObservador();
 
 		// crea un solo retardo de 10000
@@ -298,26 +304,7 @@ public class model implements modelInterface {
 	@Override
 	public void setTemporizador_juego2() {
 
-		//	System.out.println("Inicio Temporizador");
-
-		timerjuego2 = new Timer(tiempoMaxJuego2, new ActionListener() { // cada segundo
-			public void actionPerformed(ActionEvent e) {
-				//	System.out.println("FINALIZO Temporizador");
-				if (estadoJuego2 == 3 || estadoJuego2 == 4 || estadoJuego2 == 2) {
-					// PROMBLE ATERMINA Y ENTRA DOS VECE CONTROLAR!
-					//		System.out.println("Finaliza el juego 2 ");
-					finTemporizador_juego2();
-				} else {
-
-					//	System.out.println("temporizador en mdoel no termino ");
-				}
-			}
-
-		});
-
-		timerjuego2.start();
-		timerjuego2.setRepeats(false);
-
+		TimerJuego2.iniciarTimer(tiempoMaxJuego2);
 	}
 
 	public int getEstadoJuego1() {
@@ -377,6 +364,14 @@ public class model implements modelInterface {
 
 		}
 
+	}
+
+	@Override
+	public void actualizar() {
+		
+		//finalizacion de timer!!
+		finTemporizador_juego2();
+		
 	}
 
 }

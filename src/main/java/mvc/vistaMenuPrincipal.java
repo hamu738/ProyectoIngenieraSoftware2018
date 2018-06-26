@@ -1,5 +1,15 @@
 package mvc;
 
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.net.URISyntaxException;
+
+import javax.swing.*;
+import javax.imageio.ImageIO;
+
+
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,17 +19,13 @@ import interfaces.controllerInterface;
 import interfaces.modelInterface;
 import interfaces.observerInterface;
 import interfaces.vistaInterface;
-import java.awt.GridBagLayout;
+
 import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
+
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
 
 public class vistaMenuPrincipal extends JFrame implements vistaInterface, observerInterface {
 
@@ -28,6 +34,10 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JPanel contentPane2;
+	private JLabel label;
+	private Component img;
+	
 	private JTextField txtBienvenidoSeleccioneEl;
 	private modelInterface modelo;
 	private controllerInterface controller;
@@ -44,54 +54,37 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 
 	@Override
 	public void crearVista() {
+		
+		
+		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 497, 323);
+		setBounds(100, 100, 646, 448);
+		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(30, 144, 255));
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setBackground(Color.BLACK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		contentPane.setLayout(gbl_contentPane);
+		contentPane.setLayout(null);
+		
+		
 
-		txtBienvenidoSeleccioneEl = new JTextField();
-		txtBienvenidoSeleccioneEl.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBienvenidoSeleccioneEl.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 22));
-		txtBienvenidoSeleccioneEl.setForeground(SystemColor.inactiveCaptionText);
-		txtBienvenidoSeleccioneEl.setBackground(SystemColor.textHighlight);
-		txtBienvenidoSeleccioneEl.setText("Bienvenido! Seleccione el juego");
-		GridBagConstraints gbc_txtBienvenidoSeleccioneEl = new GridBagConstraints();
-		gbc_txtBienvenidoSeleccioneEl.gridwidth = 14;
-		gbc_txtBienvenidoSeleccioneEl.insets = new Insets(0, 0, 5, 5);
-		gbc_txtBienvenidoSeleccioneEl.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtBienvenidoSeleccioneEl.gridx = 4;
-		gbc_txtBienvenidoSeleccioneEl.gridy = 2;
-		contentPane.add(txtBienvenidoSeleccioneEl, gbc_txtBienvenidoSeleccioneEl);
-		txtBienvenidoSeleccioneEl.setColumns(10);
+		Button btnRompecabezas = new Button("Rompecabezas");
 
-		JButton btnRompecabezas = new JButton("Rompecabezas");
-
-		btnRompecabezas.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 17));
+		btnRompecabezas.setFont(new Font("Arial Black", Font.BOLD, 15));
+		
+		
 		btnRompecabezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				controller.seleccionJuego(1);
 			}
 		});
-		GridBagConstraints gbc_btnRompecabezas = new GridBagConstraints();
-		gbc_btnRompecabezas.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRompecabezas.gridx = 7;
-		gbc_btnRompecabezas.gridy = 4;
-		contentPane.add(btnRompecabezas, gbc_btnRompecabezas);
-
-		JButton btnMemoria = new JButton("Memoria");
-
-		btnMemoria.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 17));
+		
+		
+		btnRompecabezas.setBounds(124, 181, 131, 70);
+		contentPane.add(btnRompecabezas);
+		Button btnMemoria = new Button("Memoria");
+		btnMemoria.setFont(new Font("Arial Black", Font.BOLD, 15));
 		btnMemoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -99,12 +92,28 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 
 			}
 		});
-		GridBagConstraints gbc_btnMemoria = new GridBagConstraints();
-		gbc_btnMemoria.gridwidth = 3;
-		gbc_btnMemoria.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMemoria.gridx = 11;
-		gbc_btnMemoria.gridy = 4;
-		contentPane.add(btnMemoria, gbc_btnMemoria);
+		
+		
+		btnMemoria.setBounds(351, 181, 131, 70);
+		contentPane.add(btnMemoria);
+		
+
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(0, 40, 630, 369);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/game.jpg")));
+		
+		
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/button.png")));
+		lblNewLabel_1.setBounds(0, 0, 645, 40);
+		contentPane.add(lblNewLabel_1);
+		
+		
+		
+		
 	}
 
 	@Override
