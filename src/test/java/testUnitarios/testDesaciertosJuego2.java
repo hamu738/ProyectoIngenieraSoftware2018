@@ -18,7 +18,7 @@ public class testDesaciertosJuego2 implements observerInterface {
 
 	private modelInterface modelo;
 	private int aleatorio[];
-
+ 
 	private Semaphore semaphore = new Semaphore(1, true);
 
 	@Test

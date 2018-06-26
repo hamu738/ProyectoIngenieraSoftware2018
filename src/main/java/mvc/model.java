@@ -66,7 +66,7 @@ public class model implements modelInterface, observerInterface  {
 
 		for (int i = 0; i < listaObservers.size(); i++) {
 			observerInterface observador = (observerInterface) listaObservers.get(i);
-			observador.actualizar();
+			observador.actualizar(); 
 		}
 
 	}
