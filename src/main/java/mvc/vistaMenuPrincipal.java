@@ -104,7 +104,7 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 		contentPane.add(lblNewLabel);
 		
 		try {
-			lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/game.jpg")));
+			lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("/game.jpg")));
 
 		} catch (Exception e) {
 		}
@@ -113,7 +113,7 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 		JLabel lblNewLabel_1 = new JLabel("");
 		
 		try {
-			lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/button.png")));
+			lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("/button.png")));
 		} catch (Exception e) {
 		}
 		

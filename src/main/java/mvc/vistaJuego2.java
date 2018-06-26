@@ -119,7 +119,7 @@ public class vistaJuego2 extends JFrame implements vistaInterface, observerInter
 
 		for (int i = 0; i < buttons.length; i++) {
 			try {
-				ima[i] = new ImageIcon(this.getClass().getResource("../imagenes/" + aleatorio[i] + ".jpg")); // vamos
+				ima[i] = new ImageIcon(this.getClass().getResource("/" + aleatorio[i] + ".jpg")); // vamos
 				buttons[i].setIcon(ima[i]); // setIconNull para guardarlo
 			} catch (Exception e) {
 			}

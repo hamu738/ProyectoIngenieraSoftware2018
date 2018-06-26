@@ -82,7 +82,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		
 		// cargamos imagen
 		try {
-			source = ImageIO.read(new File(getClass().getResource("../imagenes/imagenjuego1.jpg").toURI()));
+			source = ImageIO.read(new File(getClass().getResource("/imagenjuego1.jpg").toURI()));
 			int h = getNewHeight(source.getWidth(), source.getHeight());
 			resized = resizeImage(source, DESIRED_WIDTH, h, BufferedImage.TYPE_INT_ARGB);	
 			width = resized.getWidth(null);
@@ -160,7 +160,8 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		btnExit.setBackground(SystemColor.activeCaptionBorder);
 		panel.add(btnExit);
 		
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 		evento();
         

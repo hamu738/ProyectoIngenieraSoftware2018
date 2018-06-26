@@ -1,33 +1,32 @@
-package testUnitarios;
-
-
-
-import static org.junit.Assert.assertArrayEquals;
-
+package testDeintegracion;
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-
 import org.junit.Test;
-
-import interfaces.modelInterface;
 import interfaces.observerInterface;
+import mvc.controllerJuego1;
+import mvc.controllerJuego2;
+import mvc.controllerMenuPrincipal;
 import mvc.model;
 
-//prueba la logica del juego 2, que la transicion se de los estados 0,1,2,3,4,5
+public class integracion_logicaJuego2 implements observerInterface {
 
-public class testLogicaJuego2 implements observerInterface {
-
-	private modelInterface modelo;
+	private model modelo;
 	private int aleatorio[];
 	private ArrayList<Integer> estados;
 	private ArrayList<Integer> estados_correctos;
 
 	private Semaphore semaphore = new Semaphore(1, true);
 
+	@SuppressWarnings("unused")
 	@Test
 	public void test() throws InterruptedException {
 
 		modelo = new model();
+		controllerMenuPrincipal menuPrincipal = new controllerMenuPrincipal(modelo);
+		controllerJuego1 controllerJuego1 = new controllerJuego1(modelo);
+		controllerJuego2 controllerJuego2 = new controllerJuego2(modelo);
+
 		modelo.registrarObserver(this);
 
 		estados = new ArrayList<Integer>();
@@ -41,7 +40,7 @@ public class testLogicaJuego2 implements observerInterface {
 
 		semaphore = new Semaphore(1, true);
 
-		modelo.seleccionJuego(2); // seleccionamos juego 2
+		menuPrincipal.seleccionJuego(2);
 		semaphore.acquire(); // espero estado 1
 		semaphore.acquire(); // espero estado 2
 
@@ -52,12 +51,12 @@ public class testLogicaJuego2 implements observerInterface {
 		while (true) { // leemos el arreglo y presionamos botones de forma secuncial primero los 0
 						// luego 1 luego los 2, etc.
 
-			aleatorio = modelo.getAleatorioJuego2_aux();
+			aleatorio = modelo.getAleatorioJuego2_aux(); // es lo que haria la vista
 			// System.out.println("ALEATORIO " + Arrays.toString(aleatorio));
 			int posicion = find(aleatorio, boton, a_partir_de);
 			a_partir_de = posicion;
 
-			modelo.secuenciaJuego2(posicion);
+			controllerJuego2.logicaJuego(posicion); // modelo.secuenciaJuego2(posicion);
 			logica = (logica + 1) % 2;
 			if (logica == 0) {
 				boton = boton + 1;
@@ -74,19 +73,16 @@ public class testLogicaJuego2 implements observerInterface {
 		// System.out.println("Estados " + estados.toString());
 
 		assertArrayEquals(estados_correctos.toArray(), estados.toArray());
+
 	}
 
 	@Override
 	public void actualizar() {
 
-		// this.latch.countDown();
-
-		//System.out.println("ESTADO " + modelo.getEstadoJuego2());
-
 		if (estados.isEmpty()) {
 			estados.add(modelo.getEstadoJuego2());
 		} else {
-			if (modelo.getEstadoJuego2() != estados.get(estados.size() - 1)) { //agregamos estados nuevos
+			if (modelo.getEstadoJuego2() != estados.get(estados.size() - 1)) {
 				estados.add(modelo.getEstadoJuego2());
 			}
 		}
