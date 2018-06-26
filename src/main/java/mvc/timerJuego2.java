@@ -57,7 +57,12 @@ public class timerJuego2 implements timerInterface {
 	
 	public void terminarTimer() {
 		
-		timer.stop();	
+		try {
+			timer.stop();	
+		} catch (Exception e) {
+		
+		}
+	
 		
 		
 	}
