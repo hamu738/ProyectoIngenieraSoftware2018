@@ -15,7 +15,7 @@ public class controllerMenuPrincipal implements controllerInterface {
 
 		this.modelo = modelo;
 		vistaMenuPrincipal = new vistaMenuPrincipal(this, modelo);
-		vistaMenuPrincipal.crearVista();
+		vistaMenuPrincipal.crearVista();		
 		((Window) vistaMenuPrincipal).setVisible(true);
 
 	}

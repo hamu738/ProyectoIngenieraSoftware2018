@@ -73,37 +73,43 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 
 	@Override
 	public void crearVista() {
-				
+			
 		buttons_original = new ArrayList<JButton>();
 
 		panel = new JPanel();
 		panel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		panel.setLayout(new GridLayout(5, 3, 0, 0));
-
+		
 		// cargamos imagen
 		try {
 			source = ImageIO.read(new File(getClass().getResource("../imagenes/imagenjuego1.jpg").toURI()));
 			int h = getNewHeight(source.getWidth(), source.getHeight());
-			resized = resizeImage(source, DESIRED_WIDTH, h, BufferedImage.TYPE_INT_ARGB);
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
+			resized = resizeImage(source, DESIRED_WIDTH, h, BufferedImage.TYPE_INT_ARGB);	
+			width = resized.getWidth(null);
+			height = resized.getHeight(null);
+			add(panel, BorderLayout.CENTER);
+		} catch (Exception e) {
 		}
+		
 
-		width = resized.getWidth(null);
-		height = resized.getHeight(null);
 
-		add(panel, BorderLayout.CENTER);
 
 		// divido la imagen en 4x3 y agrego un boton vacio, esto es en orden
-
+		
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++) {
-
-				image = createImage(new FilteredImageSource(resized.getSource(),
-						new CropImageFilter(j * width / 3, i * height / 4, (width / 3), height / 4)));
-				ImageIcon imagen = new ImageIcon(image);  
+				
 				JButton button = new JButton(""); 
-				button.setIcon(imagen); 
+				
+				try {
+					image = createImage(new FilteredImageSource(resized.getSource(),
+					new CropImageFilter(j * width / 3, i * height / 4, (width / 3), height / 4)));
+					ImageIcon imagen = new ImageIcon(image);  
+					button.setIcon(imagen); 
+					
+				} catch (Exception e) {
+				}
+				
 				button.putClientProperty("position", new Point(i, j));
 
 				if (i == 3 && j == 2) {
@@ -116,7 +122,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 				}
 			}
 		}
-
+		
 		buttons_original.add(lastButton);
 
 		puntos_mezclados = modelo.getVectorInicialJuego1();
@@ -157,7 +163,7 @@ public class vistaJuego1 extends JFrame implements vistaInterface, observerInter
 		
 
 		evento();
-
+        
 	}
 
 	@Override

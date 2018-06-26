@@ -97,23 +97,31 @@ public class vistaMenuPrincipal extends JFrame implements vistaInterface, observ
 		btnMemoria.setBounds(351, 181, 131, 70);
 		contentPane.add(btnMemoria);
 		
-
+		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 40, 630, 369);
 		contentPane.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/game.jpg")));
 		
+		try {
+			lblNewLabel.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/game.jpg")));
+
+		} catch (Exception e) {
+		}
 		
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/button.png")));
+		
+		try {
+			lblNewLabel_1.setIcon(new ImageIcon(this.getClass().getResource("../imagenes/button.png")));
+		} catch (Exception e) {
+		}
+		
 		lblNewLabel_1.setBounds(0, 0, 645, 40);
 		contentPane.add(lblNewLabel_1);
 		
 		
-		
-		
+			
 	}
 
 	@Override
