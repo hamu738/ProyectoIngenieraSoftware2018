@@ -1,4 +1,4 @@
-package testDeIntegracion;
+package testDeintegracion;
 import static org.junit.Assert.assertArrayEquals;
 import java.util.ArrayList;
 import java.util.Collections;

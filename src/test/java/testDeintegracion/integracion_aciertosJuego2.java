@@ -1,4 +1,4 @@
-package testDeIntegracion;
+package testDeintegracion;
 import static org.junit.Assert.assertEquals;
 import java.util.concurrent.Semaphore;
 import org.junit.Test;
