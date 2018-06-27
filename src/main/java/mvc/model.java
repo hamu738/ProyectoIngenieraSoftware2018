@@ -94,8 +94,8 @@ public class model implements modelInterface, observerInterface  {
 	@Override
 	public void inicioJuego1() {
 
-		Collections.shuffle(puntos_mezclados);
-		////Collections.swap(puntos_mezclados, 10, 11);
+		////Collections.shuffle(puntos_mezclados);
+		Collections.swap(puntos_mezclados, 10, 11);
 
 		// System.out.println("puntos mezclados " + puntos_mezclados);
 		// puntos_mezclados.add(new Point(3, 2)); // agregamos boton vacio al final
