@@ -58,7 +58,7 @@ public class testAciertosJuego2 implements observerInterface {
 			}
 		}
 		
-		assertEquals(7, 6);
+		assertEquals(modelo.getAciertosJuego2(), 6);
 		
 	}
 
